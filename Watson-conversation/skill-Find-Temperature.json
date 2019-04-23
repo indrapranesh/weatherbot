@@ -1,0 +1,193 @@
+{
+  "name": "Find Temperature",
+  "intents": [
+    {
+      "intent": "hello",
+      "examples": [
+        {
+          "text": "hey"
+        },
+        {
+          "text": "hello"
+        },
+        {
+          "text": "hi"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "sys-location",
+      "values": []
+    }
+  ],
+  "language": "en",
+  "metadata": {
+    "api_version": {
+      "major_version": "v1",
+      "minor_version": "2018-07-10"
+    }
+  },
+  "description": "",
+  "dialog_nodes": [
+    {
+      "type": "frame",
+      "output": {
+        "generic": []
+      },
+      "parent": "Welcome",
+      "metadata": {
+        "fallback": "leave"
+      },
+      "conditions": "@sys-location",
+      "dialog_node": "node_10_1555810593257",
+      "digress_out": "allow_all",
+      "previous_sibling": "slot_19_1555811003551",
+      "digress_out_slots": "not_allowed"
+    },
+    {
+      "type": "slot",
+      "parent": "Welcome",
+      "dialog_node": "slot_19_1555811003551"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_19_1555811003551",
+      "event_name": "focus",
+      "dialog_node": "handler_21_1555811003551",
+      "previous_sibling": "handler_20_1555811003551"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_19_1555811003551",
+      "event_name": "input",
+      "dialog_node": "handler_20_1555811003551"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Enter a valid city name."
+          ]
+        }
+      },
+      "parent": "slot_11_1555810610570",
+      "metadata": {},
+      "conditions": "true",
+      "event_name": "nomatch",
+      "dialog_node": "handler_15_1555810694096",
+      "previous_sibling": "handler_14_1555810694096"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_11_1555810610570",
+      "actions": [
+        {
+          "name": "/indrapranesh2111@gmail.com_dev/watson/temperature",
+          "type": "server",
+          "parameters": {
+            "city": "$city"
+          },
+          "credentials": "$mycreds",
+          "result_variable": "$weather"
+        }
+      ],
+      "context": {
+        "city": "@sys-location"
+      },
+      "metadata": {},
+      "conditions": "@sys-location",
+      "event_name": "input",
+      "dialog_node": "handler_12_1555810610570",
+      "previous_sibling": "handler_13_1555810610570"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "The temperature at $city is $weather.response.main.temp ° F"
+          ]
+        }
+      },
+      "parent": "slot_11_1555810610570",
+      "metadata": {},
+      "conditions": "true",
+      "event_name": "filled",
+      "dialog_node": "handler_14_1555810694096",
+      "previous_sibling": "handler_12_1555810610570"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "Give a valid city  name."
+      },
+      "parent": "slot_11_1555810610570",
+      "metadata": {},
+      "event_name": "focus",
+      "dialog_node": "handler_13_1555810610570"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_10_1555810593257",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "variable": "$city",
+      "dialog_node": "slot_11_1555810610570"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello there! I'm Watson weather bot. Let's talk about weather, shall we? To get started, tell me the name of your city. It’ll help me send you weather forecasts for your area."
+              },
+              {
+                "text": "Enter your city name to know the weather."
+              },
+              {
+                "text": "Please enter your city .It’ll help me send you weather forecasts for your area."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "context": {
+        "mycreds": {
+          "user": "c979d84c-0000-44cf-bb78-7559ba139a98",
+          "password": "1s2j5At0hF0gY7dV0UiSK1Hv3ljMFevKvoKKMSmoGDLmT2yDLhQuXtOnSUQSKMPu"
+        }
+      },
+      "metadata": {
+        "fallback": "leave"
+      },
+      "conditions": "#hello",
+      "digress_in": "does_not_return",
+      "dialog_node": "Welcome",
+      "digress_out": "allow_all"
+    }
+  ],
+  "workspace_id": "60e9df1e-77e8-4c4b-afeb-077e672919db",
+  "counterexamples": [],
+  "system_settings": {
+    "tooling": {
+      "store_generic_responses": true
+    }
+  },
+  "learning_opt_out": false,
+  "status": "Available"
+}
